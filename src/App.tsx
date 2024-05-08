@@ -27,7 +27,7 @@ function App() {
       description: "Descripción del Proyecto 1",
       price: 100,
       category: "Tecnología",
-      imageUrl: "URL de la imagen del proyecto 1"
+      imageUrl: "https://ichef.bbci.co.uk/ace/ws/800/cpsprodpb/DBB7/production/_122074265_hi071843849.jpg"
     },
     {
       id: 2,
@@ -35,7 +35,15 @@ function App() {
       description: "Descripción del Proyecto 2",
       price: 200,
       category: "Arte",
-      imageUrl: "URL de la imagen del proyecto 2"
+      imageUrl: "https://gtizaragoza.es/images/noticias/0623-ViviendaEnToken.jpg"
+    },
+    {
+      id: 3,
+      title: "Proyecto 2",
+      description: "Descripción del Proyecto 2",
+      price: 200,
+      category: "Arte",
+      imageUrl: "https://gtizaragoza.es/images/noticias/0623-ViviendaEnToken.jpg"
     },
     // Agrega más objetos similares según sea necesario
   ];
