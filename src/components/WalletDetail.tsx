@@ -1,12 +1,47 @@
-import { useEffect, useState } from "react";
-import { Text, Flex, Divider, Button, useToast } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Text, Flex, Button, useToast } from "@chakra-ui/react";
 import { useWeb3 } from "../context/Web3Context";
 import { useUser } from "../context/UserContext";
+import { FiCopy } from "react-icons/fi"; // Importa el icono de copiar
+
+// Subcomponente para mostrar el detalle del balance
+const BalanceDetail = ({ balance }: { balance: string }) => {
+  return (
+    <Flex direction="column" alignItems="flex-start" mb={0}> {/* Ajuste del margen inferior */}
+      <Text fontWeight="extrabold" fontSize="28px" mb={2.5}>Balance</Text>
+      <Text fontFamily="monospace" fontSize="20px"> {balance}</Text>
+    </Flex>
+  );
+};
+
+// Subcomponente para mostrar el detalle de la dirección
+const AddressDetail = ({ address }: { address: string }) => {
+  const toast = useToast(); // Para mostrar mensajes de éxito al copiar
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(address);
+    toast({
+      title: "Dirección copiada al portapapeles",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
+  return (
+    <Flex direction="column" alignItems="flex-end" ml={50} mt={3}> {/* Ajuste del margen izquierdo */}
+      <Text fontWeight="bold" mb={4}>Address</Text>
+      <Flex alignItems="center">
+        <Text fontFamily="monospace" mb={4} mr={0}>{address.slice(0, 10)}</Text>
+        <Button size="sm" mb={4} onClick={copyToClipboard} bg="transparent" _hover={{ bg: "transparent" }} _active={{ bg: "transparent" }} _focus={{ boxShadow: "none" }} leftIcon={<FiCopy color="white" />} ml={0}></Button> {/* Botón de copiar con icono en blanco */}
+      </Flex>
+    </Flex>
+  );
+};
 
 const WalletDetail = () => {
   const { web3 } = useWeb3();
   const { user } = useUser();
-  const toast = useToast(); // Para mostrar mensajes de éxito al copiar
 
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState("");
@@ -19,7 +54,6 @@ const WalletDetail = () => {
         setAddress(user);
 
         const balance = await web3.eth.getBalance(user);
-        // Convertimos el balance a Ether y lo redondeamos a 4 decimales
         const balanceInEther = parseFloat(web3.utils.fromWei(balance, "ether")).toFixed(4);
         setBalance(balanceInEther);
       } catch (error) {
@@ -28,42 +62,15 @@ const WalletDetail = () => {
     };
 
     fetchWalletDetails();
-}, [user, web3]);
+  }, [user, web3]);
 
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(address);
-    toast({
-      title: "Dirección copiada al portapapeles",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
-
- return (
-  <Flex direction="column" alignItems="center" borderWidth="1px" borderRadius="md" p={4}>
-    <Flex direction="row" justifyContent="space-between" width="100%" mb={4}>
-      <Text fontWeight="bold">
-        Balance
-      </Text>
-      <Text fontFamily="monospace">{balance} ETH</Text>
+  return (
+    <Flex direction="row" alignItems="flex-start" borderWidth="01px" borderRadius="md" p={5}> {/* Ajuste del margen izquierdo */}
+      <BalanceDetail balance={`${balance} ETH`} />
+      <Flex flexGrow={1} />
+      <AddressDetail address={address} />
     </Flex>
-    <Divider mb={4} />
-    <Flex direction="row" justifyContent="space-between" width="100%">
-      <Text fontWeight="bold">
-        Address
-      </Text>
-      <Flex alignItems="center">
-        <Text fontFamily="monospace">{address}</Text>
-        <Button size="sm" ml={2} onClick={copyToClipboard}>
-          Copiar
-        </Button>
-      </Flex>
-    </Flex>
-  </Flex>
-);
-
+  );
 };
 
 export default WalletDetail;

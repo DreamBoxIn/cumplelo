@@ -161,5 +161,49 @@ button:hover {
   background-color: #0056b3;
 }
 /* App.css */
+/* Marketplace.css */
+.marketplace {
+  margin-top: 20px;
+}
+
+.marketplace-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.marketplace-item button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.marketplace-item button:hover {
+  background-color: #0056b3;
+}
+
 
 /* Estilos globales de la aplicación */
+
+/* Estilos para el menú desplegable */
+.MenuList {
+  color: black; /* Cambia el color del texto del menú desplegable a negro */
+}
+
+/* App.css */
+
+/* Estilos para la aplicación */
+/* ... */
+
+/* Estilos para el marketplace */
+.marketplace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}

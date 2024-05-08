@@ -32,7 +32,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onSubmit, messages }) => { // Incluye
           type="text"
           value={input}
           onChange={handleChange}
-          placeholder="Escribe aquí..."
+          placeholder="Próximamente AI Wallet....."
         />
         <button type="submit">Enviar</button>
       </form>
