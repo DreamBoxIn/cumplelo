@@ -1,0 +1,71 @@
+/* Estilos para el contenedor del chat */
+.chat-box {
+    /* Agrega estilos de diseño y tamaño */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Estilos para el contenedor de mensajes */
+.message-container {
+    /* Agrega estilos de diseño y tamaño */
+    overflow-y: auto; /* Permite desplazamiento vertical si hay muchos mensajes */
+    max-height: 300px; /* Limita la altura máxima del contenedor */
+}
+
+input[type="text"] {
+    /* Agrega estilos para el input de texto */
+    /* Puedes ajustar el tamaño, el espaciado y otros estilos según tus necesidades */
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+button {
+    /* Agrega estilos para el botón */
+    /* Puedes ajustar el color, el tamaño y otros estilos según tus necesidades */
+    padding: 8px 16px;
+    background-color: #007bff28;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    /* Estilos para cuando el botón está en estado de hover */
+    background-color: #0056b3;
+}
+.chat-box {
+    width: 500px; /* Anchura ajustada */
+    margin: 0 auto; /* Centrado horizontal */
+    padding: 20px; /* Espacio interior */
+    color: rgb(0, 0, 0); /* Color del texto */
+    border-radius: 8px; /* Borde redondeado */
+  }
+  
+  .message-container {
+    max-height: 200px; /* Altura máxima del contenedor de mensajes */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+  }
+  
+  .chat-input {
+    width: calc(100% - 80px); /* Anchura del input menos el ancho del botón */
+    margin-right: 10px; /* Espacio a la derecha del input */
+    padding: 10px; /* Espaciado interior */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+  }
+  
+  .send-button {
+    width: 60px; /* Anchura del botón */
+    padding: 20px; /* Espaciado interior */
+    border: none; /* Sin borde */
+    background-color: #007bff; /* Color de fondo */
+    color: rgb(0, 0, 0); /* Color del texto */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+  }
+  
