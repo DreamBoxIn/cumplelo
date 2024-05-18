@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { Text, Flex, Button, useToast } from "@chakra-ui/react";
+import { Flex, Text, Button, useToast, useColorModeValue } from "@chakra-ui/react";
+import { FiCopy } from "react-icons/fi";
 import { useWeb3 } from "../context/Web3Context";
 import { useUser } from "../context/UserContext";
-import { FiCopy } from "react-icons/fi"; // Importa el icono de copiar
 
-// Subcomponente para mostrar el detalle del balance
-const BalanceDetail = ({ balance }: { balance: string }) => {
+interface BalanceDetailProps {
+  balance: string;
+}
+
+const BalanceDetail: React.FC<BalanceDetailProps> = ({ balance }) => {
+  const textColor = useColorModeValue("gray.800", "whiteAlpha.900");
+
   return (
-    <Flex direction="column" alignItems="flex-start" mb={0}> {/* Ajuste del margen inferior */}
-      <Text fontWeight="extrabold" fontSize="28px" mb={2.5}>Balance</Text>
-      <Text fontFamily="monospace" fontSize="20px"> {balance}</Text>
+    <Flex direction="column" alignItems="flex-start" mb={0}>
+      <Text fontWeight="extrabold" fontSize="28px" mb={2.5} color={textColor}>Balance</Text>
+      <Text fontFamily="monospace" fontSize="20px" color={textColor}>{balance}</Text>
     </Flex>
   );
 };
 
-// Subcomponente para mostrar el detalle de la dirección
-const AddressDetail = ({ address }: { address: string }) => {
-  const toast = useToast(); // Para mostrar mensajes de éxito al copiar
+interface AddressDetailProps {
+  address: string;
+}
+
+const AddressDetail: React.FC<AddressDetailProps> = ({ address }) => {
+  const textColor = useColorModeValue("gray.800", "whiteAlpha.900");
+  const toast = useToast();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(address);
@@ -29,11 +38,11 @@ const AddressDetail = ({ address }: { address: string }) => {
   };
 
   return (
-    <Flex direction="column" alignItems="flex-end" ml={50} mt={3}> {/* Ajuste del margen izquierdo */}
-      <Text fontWeight="bold" mb={4}>Address</Text>
+    <Flex direction="column" alignItems="flex-end" ml={50} mt={3}>
+      <Text fontWeight="bold" mb={4} color={textColor}>Address</Text>
       <Flex alignItems="center">
-        <Text fontFamily="monospace" mb={4} mr={0}>{address.slice(0, 10)}</Text>
-        <Button size="sm" mb={4} onClick={copyToClipboard} bg="transparent" _hover={{ bg: "transparent" }} _active={{ bg: "transparent" }} _focus={{ boxShadow: "none" }} leftIcon={<FiCopy color="white" />} ml={0}></Button> {/* Botón de copiar con icono en blanco */}
+        <Text fontFamily="monospace" mb={4} mr={0} color={textColor}>{address.slice(0, 10)}</Text>
+        <Button size="sm" mb={4} onClick={copyToClipboard} bg="transparent" _hover={{ bg: "transparent" }} _active={{ bg: "transparent" }} _focus={{ boxShadow: "none" }} leftIcon={<FiCopy color="black" />} marginEnd={-5} ml={0}></Button>
       </Flex>
     </Flex>
   );
@@ -65,7 +74,7 @@ const WalletDetail = () => {
   }, [user, web3]);
 
   return (
-    <Flex direction="row" alignItems="flex-start" borderWidth="01px" borderRadius="md" p={5}> {/* Ajuste del margen izquierdo */}
+    <Flex direction="row" alignItems="flex-start" borderWidth="01px" borderRadius="md" p={5}>
       <BalanceDetail balance={`${balance} ETH`} />
       <Flex flexGrow={1} />
       <AddressDetail address={address} />

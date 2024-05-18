@@ -2,7 +2,7 @@ export interface Project {
     id: number;
     title: string;
     description: string;
-    price: number;
+    disponibles: number;
     category: string;
     imageUrl: string;
   }

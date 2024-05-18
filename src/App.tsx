@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { VStack, HStack, Box, Text, Button, Menu, MenuButton, MenuList, MenuItem, Icon } from "@chakra-ui/react";
-import { FiUser } from "react-icons/fi"; // Importa el icono de perfil
-import { useUser } from "./context/UserContext";
+import React, { useState } from "react";
+import { VStack, Box } from "@chakra-ui/react";
+import UserMenu from "./components/UserMenu";
 import ConnectButton from "./components/ConnectButton";
 import ShowUIButton from "./components/ShowUIButton";
-import WalletDetail from "./components/WalletDetail"; // Importa el componente WalletDetail
 import ChatBox from "./components/ChatBox";
-import Marketplace from "./components/Marketplace";
-import DisconnectButton from "./components/DisconnectButton"; // Importa el componente DisconnectButton
+import ProjectCarousel from "./components/ProjectCarousel";
+import Footer from "./components/Footer";
+import { useUser } from "./context/UserContext";
 import { Project } from "./types";
-
+import { Card, Button } from "@nextui-org/react"; // Importamos Card y Button desde NextUI
 
 function App() {
   const { user } = useUser();
@@ -19,89 +18,55 @@ function App() {
     setChatMessages((prevMessages) => [...prevMessages, message]);
   };
 
-  // Definir la lista de proyectos
   const projects: Project[] = [
     {
       id: 1,
-      title: "Proyecto 1",
-      description: "Descripción del Proyecto 1",
-      price: 100,
-      category: "Tecnología",
-      imageUrl: "https://ichef.bbci.co.uk/ace/ws/800/cpsprodpb/DBB7/production/_122074265_hi071843849.jpg"
+      title: "Black Bull",
+      description: "En Club Criptoactivos, tuvimos la oportunidad de conversar sobre la tokenización de activos reales...",
+      disponibles: 10,
+      category: "Inversiones",
+      imageUrl: "https://static.wixstatic.com/media/bf36ae_dd3f598dcff94e3cb892ce4e924dcc0a~mv2.png/v1/fit/w_776,h_459,q_90/bf36ae_dd3f598dcff94e3cb892ce4e924dcc0a~mv2.webp"
     },
     {
       id: 2,
-      title: "Proyecto 2",
-      description: "Descripción del Proyecto 2",
-      price: 200,
-      category: "Arte",
-      imageUrl: "https://gtizaragoza.es/images/noticias/0623-ViviendaEnToken.jpg"
+      title: "Blockchain Economy London",
+      description: "En dicho evento, tuvimos la oportunidad de de conversar sobre la tokenización...",
+      disponibles: 20,
+      category: "Blockchain",
+      imageUrl: "https://static.wixstatic.com/media/bf36ae_c453fd286c474a5d8043e686689ee79b~mv2.jpeg/v1/fit/w_776,h_459,q_90/bf36ae_c453fd286c474a5d8043e686689ee79b~mv2.webp"
     },
     {
       id: 3,
-      title: "Proyecto 2",
-      description: "Descripción del Proyecto 2",
-      price: 200,
-      category: "Arte",
-      imageUrl: "https://gtizaragoza.es/images/noticias/0623-ViviendaEnToken.jpg"
-    },
-    // Agrega más objetos similares según sea necesario
+      title: "MPWR Girls in charge",
+      description: "La Directora General Eloisa Cadenas de Monetae Exchange convivió con grandes conferencistas...",
+      disponibles: 200,
+      category: "Tecnología",
+      imageUrl: "https://static.wixstatic.com/media/bf36ae_ee1b24c898ad42548e17a126d1f8684b~mv2.png/v1/fit/w_776,h_459,q_90/bf36ae_ee1b24c898ad42548e17a126d1f8684b~mv2.webp"
+    }
   ];
-  
 
   return (
     <Box className="App" minHeight="100vh" bg="#1a202c" color="white">
-      <header className="App-header">
-        <HStack justifyContent="space-between" alignItems="center" w="100%" px={6} py={4}>
-          <Box display="flex" alignItems="center">
-            <img
-              src={require("./logoelo.png")}
-              alt="Logo"
-              style={{ borderRadius: "50%", marginRight: "10px" }}
-            />
-            <Text fontSize="2xl" fontWeight="bold">
-              Elo Wallet
-            </Text>
-          </Box>
-          {user && (
-            <Menu>
-              <MenuButton
-                as={Button}
-                variant="outline"
-                colorScheme="white"
-                size="sm"
-                borderRadius="md"
-                _hover={{ bg: "blue.800" }}
-                rightIcon={<Icon as={FiUser} />} // Utiliza el icono de perfil en el lado derecho del botón
-              >
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Editar perfil</MenuItem>
-                <MenuItem><DisconnectButton /></MenuItem> {/* Utilizar DisconnectButton directamente aquí */}
-              </MenuList>
-            </Menu>
-          )}
-        </HStack>
-      </header>
+      <UserMenu />
       <main className="App-content">
-        <VStack justifyContent="center" alignItems="center" spacing={6} p={6}>
+        <VStack justifyContent="center" alignItems="center" spacing={10} p={10}>
           {!user ? (
             <ConnectButton />
           ) : (
             <>
-              <WalletDetail /> {/* Muestra WalletDetail */}
               <ShowUIButton />
               <ChatBox onSubmit={handleChatSubmit} messages={chatMessages} />
-              <Marketplace projects={projects} /> {/* Pasar la lista de proyectos como una propiedad */}
+              <ProjectCarousel projects={projects} />
+              <div className="mt-8">
+                <Card>
+                  <Button>This is an example button component from NextUI</Button>
+                </Card>
+              </div>
             </>
           )}
         </VStack>
       </main>
-      <footer className="App-footer">
-        <Box textAlign="center" py={4}>
-          <Text fontSize="sm">¡Gracias por usar nuestra aplicación de billetera digital!</Text>
-        </Box>
-      </footer>
+      <Footer />
     </Box>
   );
 }
